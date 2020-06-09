@@ -6,6 +6,7 @@
 
 from __future__ import absolute_import
 from functools import partial
+from queue import Queue
 
 class Node:
     def __init__(self, value=None):
@@ -81,3 +82,34 @@ class Node:
         return f"{self.__class__.__name__} value: {self.value}\n" + \
             f"Has Left Child: {self.hasLeftChild}\t Has Right CHild: {self.hasRightChild}"
 
+
+    
+
+
+class Stack:
+    """
+    Use List to imitate stack hehavior: LIFO.
+    """
+    def __init__(self):
+        self.result = []
+
+    
+    def push(self, value):
+        self.result.append(value)
+
+    
+    def pop(self):
+        self.result.pop()
+
+    
+    def top(self):
+        """Extract Last Element"""
+        if len(self.result) > 0:
+            return self.result[-1]
+        else:
+            return None
+
+        
+    def isEmpty(self):
+        """Check Empty"""
+        return bool(self.result)
