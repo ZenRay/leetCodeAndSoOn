@@ -225,3 +225,48 @@ class SingleLinkedList:
         return currentIndex + 1
 
 
+
+
+class DoubleLinkedList:
+    """
+    双向链表明确自己的尾部，所以可以快速的添加元素
+    """
+    def __init__(self, *args, values=None):
+        self.head = None
+        self.tail = None
+
+        if values is None:
+            values = args
+        # values maybe a primitive value or a sequence value
+        elif isinstance(values, Sequence):
+            values = list(values) + list(args)
+        else:
+            values = [values]
+
+        # update list
+        for value in values:
+            self.append(value)
+
+    
+    def append(self, value):
+        """Add DoubleNode
+
+        If head is None, it's empty DoubleLinkedList. Add a DoubleNode to head. 
+        If head is not None, add node to tail.
+
+        Exceptions:
+            If value type is not string, number, raise TypeError
+        """
+        if not isinstance(value, (numbers.Number, str)):
+            raise TypeError(f"Support numeric value or string, but get {type(value)}")
+
+        if self.head is None:
+            self.head = DoubleNode(value=value)
+            self.tail = self.head
+            return None
+        
+        self.tail._next = DoubleNode(value=value)
+        self.tail._next._prev = self.tail
+        
+        return None
+    
