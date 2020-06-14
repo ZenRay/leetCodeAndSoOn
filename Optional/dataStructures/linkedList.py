@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import
 import numbers
+import copy
 from collections.abc import Sequence
 
 class Node:
@@ -91,17 +92,22 @@ class SingleLinkedList:
     def append(self, value):
         """Add Node
 
-        If head is None, it's empty LinkedList. Add a Node to head. If head is 
+        If head is None, it's empty linkedList. Add a Node to head. If head is 
         not None, loop the linked list and add a node.
 
         Exceptions:
             If value type is not string, number, raise TypeError
         """
-        if not isinstance(value, (numbers.Number, str)):
-            raise TypeError(f"Support numeric value or string, but get {type(value)}")
+        if isinstance(value, (numbers.Number, str)):
+            newNode = Node(value=value)
+        elif isinstance(value, SingleLinkedList):
+            newNode = value
+        else:
+            raise TypeError(f"Support numeric value, string or SingleLinkedList, \
+                but get {type(value)}")
 
         if self.head is None:
-            self.head = Node(value=value)
+            self.head = newNode
             return None
         
         # loop list
@@ -110,7 +116,7 @@ class SingleLinkedList:
             node = node._next
 
         # append element
-        node._next = Node(value=value)
+        node._next = newNode
         
         return None
 
@@ -118,7 +124,7 @@ class SingleLinkedList:
     def prepend(self, value):
         """Append Node At Head
 
-        If head is None, it's empty LinkedList. Add a Node to head. If head is 
+        If head is None, it's empty linkedList. Add a Node to head. If head is 
         not None, add linked list to new Node.
 
         Exceptions:
@@ -224,9 +230,39 @@ class SingleLinkedList:
         
         return currentIndex + 1
 
+    
+    def __iter__(self):
+        """Iterator"""
+        currentNode = self.head
+        while currentNode:
+            yield currentNode
+
+            # get next node
+            if hasattr(currentNode, "_next"):
+                currentNode = currentNode._next
+            else:
+                currentNode = None
 
 
+    # def __str__(self):
+    #     """Display Address"""
+    #     return "<Single Linked List at %s>" % hex(id(self))
 
+
+    def __repr__(self):
+        """Display Address"""
+        return "<Single Linked List at %s>" % hex(id(self))
+
+    
+    def reverse(self):
+        """Reversed Single Linked List: Create a New Single Linked List"""
+        values = [node.value for node in self]
+        result = SingleLinkedList(values=values[::-1])
+            
+        return result
+
+
+            
 class DoubleLinkedList:
     """
     双向链表明确自己的尾部，所以可以快速的添加元素
@@ -270,3 +306,4 @@ class DoubleLinkedList:
         
         return None
     
+
