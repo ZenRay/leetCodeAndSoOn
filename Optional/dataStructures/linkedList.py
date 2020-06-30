@@ -262,7 +262,35 @@ class SingleLinkedList:
         return result
 
 
+    @classmethod
+    def iscircular(cls, List):
+        """Detect Linked List Loop
+
+        以快慢两个指针检查链表，如果其中一个快的指针，最终和慢的链表指针节点相等的话。那么就
+        表明链表是一个循环对象
+        """
+        if List.head is None:
+            return False
+        
+        slow = List.head
+        fast = List.head
+
+        while fast and fast._next:
+            # 慢指针移动一次
+            slow = slow._next
+
+            # 快指针移动两次
+            fast = fast._next._next
             
+            if slow == fast:
+                return True
+        
+        # 如果移动到下一个慢指针对象为空时，退出循环
+        return False
+
+
+
+
 class DoubleLinkedList:
     """
     双向链表明确自己的尾部，所以可以快速的添加元素
