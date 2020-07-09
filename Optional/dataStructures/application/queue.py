@@ -68,8 +68,55 @@ class Queue:
         return self.size == 0
 
 
+"""
+第二种方式处理 Queue，思路是利用 Stack 进行处理:
+1. 需要分别建立两个 Stack，一个用于快速处理入队，一个处理出对
+2. 出入队列的处理，入队优先将数据写入入队 Stack，出对队列需要判断出对 Stack 是否存在，
+    如果存在可以直接返回结果；如果不存在需要逆向先将入队 Stack pop 出数据写入出对 Stack，这样
+    就达到了逆向排序的目的
+"""
+class Stack:
+    def __init__(self):
+        self.items = []
+    
+    @property
+    def size(self):
+        return len(self.items)
+    
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.size == 0:
+            return None
+        else:
+            return self.items.pop()
+
+class Queue2:
+    def __init__(self):
+        self.instorage = Stack()
+        self.outstorage = Stack()
+    
+    @property
+    def size(self):
+        return self.outstorage.size + self.instorage.size
+
+
+    def enqueue(self, value):
+        self.instorage.push(value)
+
+
+    def dequeue(self):
+        """
+        """
+        if not self.outstorage.items:
+            while self.instorage.items:
+                self.outstorage.push(self.instorage.pop())
+        return self.outstorage.pop()
+
+
 if __name__ == "__main__":
-    q = Queue()
+    q = Queue2()
     q.enqueue(1)
     q.enqueue(2)
     q.enqueue(3)

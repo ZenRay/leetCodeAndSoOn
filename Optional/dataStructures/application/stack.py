@@ -35,7 +35,7 @@ class Stack:
 
     def pop(self):
         if self.is_empty:
-            raise ValueError("Empty stack")
+            return None
         value = self.array[self.next - 1]
         self.array[self.next - 1] = None
 
@@ -53,7 +53,7 @@ class Stack:
 
 """
 第二个版本：
-第二个版本处理的方式，不是使用 List 来模拟，而是直接使用节点的方式。所以在处理上需要分别使用
+第二个版本处理的方式，不是使用 List 来模拟，而是直接使用 Linked List 的方式。所以在处理上需要分别使用
 Node 和对应的数据来处理
 """
 class Node:
