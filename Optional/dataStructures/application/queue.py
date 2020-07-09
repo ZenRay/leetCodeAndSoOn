@@ -115,8 +115,29 @@ class Queue2:
         return self.outstorage.pop()
 
 
+"""
+第三种方法，直接利用 List 的 append() 和 pop(0) 方法模拟出对和入队
+"""
+
+class Queue3:
+    def __init__(self):
+        self.items = []
+
+    @property
+    def size(self):
+        return len(self.items)
+
+    
+    def enqueue(self, value):
+        self.items.append(value)
+    
+
+    def dequeue(self):
+        return self.items.pop(0)
+
+
 if __name__ == "__main__":
-    q = Queue2()
+    q = Queue3()
     q.enqueue(1)
     q.enqueue(2)
     q.enqueue(3)
