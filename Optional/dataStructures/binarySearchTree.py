@@ -16,7 +16,7 @@
 
 from __future__ import absolute_import
 from functools import partial
-from queue import Queue
+from collections import deque
 
 class Node:
     def __init__(self, value=None):
@@ -185,6 +185,98 @@ Stack:
         return visit_order
 
 
+    @staticmethod
+    def traverseWithPreOrderInRecursion(tree):
+        """
+        使用递归的方式完成 DFS 前序搜索，这种方式可以减少代码量
+        """
+        result = []
+        
+        # 使用 local function，将递归函数放在内部
+        def traverse(node):
+            if node:
+                result.append(node.value) # 父节点
+                traverse(node.leftChild) # 左子节点
+                traverse(node.rightChild) # 右子节点
+
+        root = tree.getRoot()
+        traverse(root)
+        return result
+
+
+    @staticmethod
+    def traverseWithInOrderInRecursion(tree):
+        """
+        使用递归方式完成中序遍历
+        """
+        result = []
+        
+        # 使用 local function，将递归函数放在内部
+        def traverse(node):
+            if node:
+                traverse(node.leftChild)
+                traverse(node.rightChild)
+                result.append(node.value)
+
+        root = tree.getRoot()
+        traverse(root)
+        return result 
+
+    @staticmethod
+    def traverseWithPostOrderInRecursion(tree):
+        """
+        使用递归方式完成后续遍历
+        """
+        result = []
+        
+        # 使用 local function，将递归函数放在内部
+        def traverse(node):
+            if node:
+                traverse(node.leftChild)
+                traverse(node.rightChild)
+                result.append(node.value)
+
+        root = tree.getRoot()
+        traverse(root)
+        return result 
+
+
+    @staticmethod
+    def traverseWithBFS(tree):
+        """
+        宽度优先搜索
+        """
+        visit_order = []
+        node = tree.getRoot()
+        state = State(node)
+        visit_order.append(state.node.value)
+        
+        # 添加 node 进 queue
+        queue = Queue()
+        queue.enq(state)
+
+        while not queue.isEmpty():
+            # 添加左节点
+            if state.node.hasLeftChild and not state.leftVisited:
+                state.leftVisited = True # 更新当前足昂泰
+                # 更新左节点
+                node = state.node.leftChild
+                state = State(node)
+                queue.enq(state)
+                visit_order.append(node.value)
+
+            # 添加有节点
+            if state.node.hasRightChild and not state.rightVisited:
+                state.rightVisited = True # 更新当前状态
+                # 添加右节点
+                node = state.node.rightChild
+                state = State(node)
+                visit_order.append(node.value)
+                queue.enq(state)
+                
+            # 获取下一个节点
+            state = queue.deq()
+        return visit_order
 
 
 
@@ -251,6 +343,40 @@ visited_right: {self.rightVisited}
 
 
 
+class Queue():
+    """
+    为方便 BFS 搜索，建立一个 Queue，参考
+    https://youtu.be/HVVW7LV1Fk8
+    """
+    def __init__(self):
+        self.q = deque()
+        
+    def enq(self,value):
+        self.q.appendleft(value)
+        
+    def deq(self):
+        if len(self.q) > 0:
+            return self.q.pop()
+        else:
+            return None
+    
+    def __len__(self):
+        return len(self.q)
+    
+
+    def isEmpty(self):
+        return len(self.q) == 0
+
+    def __repr__(self):
+        if len(self.q) > 0:
+            s = "<enqueue here>\n_________________\n" 
+            s += "\n_________________\n".join([str(item) for item in self.q])
+            s += "\n_________________\n<dequeue here>"
+            return s
+        else:
+            return "<queue is empty>"
+
+
 if __name__ == "__main__":
     if False:
         node0 = Node()
@@ -295,10 +421,21 @@ if __name__ == "__main__":
         print(f"has right child? {node0.hasRightChild}")
 
     # 测试树搜索
-    if True:
+    if False:
         tree = Tree("aple")
         tree.getRoot().leftChild = Node("ban")
         tree.getRoot().rightChild = Node("cheer")
         tree.getRoot().leftChild.leftChild = Node("dates")
 
-        print(Tree.traverseWithPreOrder(tree, True))
+        # print(Tree.traverseWithPreOrder(tree, True))
+        print(Tree.traverseWithPreOrderInRecursion(tree))
+
+
+    # 测试搜索树 BFS
+    if True:
+        # check solution
+        tree = Tree("apple")
+        tree.getRoot().leftChild = Node("banana")
+        tree.getRoot().rightChild = Node("cherry")
+        tree.getRoot().leftChild.leftChild = Node("dates")
+        print(Tree.traverseWithBFS(tree))
