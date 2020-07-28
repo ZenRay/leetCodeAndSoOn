@@ -49,12 +49,31 @@ class Solution:
             result = [prev + post for prev in result for post in self.hashWords[digit]]
         
         return result
-                    
-                
+
+
+    def letterCombinations2(self, digits):
+        """
+        调整上面的代码，思路同样是循环的思路，但通过递的方式实现回溯来解决问题
+        时间复杂度： $O(3^N \times 4^M)$，N 和 M 分别对应的数字字符有三位和四位的个数，
+            例如 1、2、3 等就只有三位，7、9 有四位
+        """
+        result = []
+        def combine(combinations, next_digits):
+            # * 如果下一个数字字符为空，那么直接将已经完成的结果添加到 result 中
+            if len(next_digits) == 0:
+                result.append(combinations)
+            else:
+                # * 分别将下一个数字字符对应的字符，和之前的结果进行结合作为新结果，继续调用
+                # * 自身函数（递归）
+                for char in self.hashWords[next_digits[0]]:
+                    combine(combinations + char, next_digits[1:])
+        # ! 需要在 local 函数外有一个可变的对象（result）用于存储最终结果，调用函数返回结果
+        combine("", digits)
+        return result
 
 
 
 if __name__ == "__main__":
     digits = "234"
     s = Solution()
-    print(s.letterCombinations(digits))
+    print(s.letterCombinations2(digits))
