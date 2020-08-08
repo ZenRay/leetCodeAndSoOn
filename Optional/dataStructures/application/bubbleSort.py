@@ -23,7 +23,8 @@ def bubble_sort(array):
 def bubble_sort_version2(array):
     """
     冒泡排序: 利用两层循环的思路去解决排序问题，外层循环控制循环次数——利用的原理是冒泡排序需要的
-    迭代次数是 n - 1 次
+    迭代次数是 n - 1 次。该方法和上面的方法的差异在于降低了空间复杂度，直接在原来的数据上进行
+    调整
     """
     # 外层设置迭代次数
     for iteration in range(len(array) - 1):
