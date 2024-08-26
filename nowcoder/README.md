@@ -14,3 +14,9 @@
 注：该公司共开设了三门课程，员工可自愿原则性培训0-3项，每项课程每人可培训1次
 
 > [解答思路](./SQL/统计所有课程参加培训人次.sql)
+
+* [获取当前薪水第二多的员工的emp_no以及其对应的薪水salary](https://www.nowcoder.com/practice/c1472daba75d4635b7f8540b837cc719?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D268)
+
+> 请你查找薪水排名第二多的员工编号emp_no、薪水salary、last_name以及first_name，不能使用order by完成
+
+> [解答思路](./SQL/获取当前薪水第二多的员工.sql)
