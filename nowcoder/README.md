@@ -20,3 +20,9 @@
 > 请你查找薪水排名第二多的员工编号emp_no、薪水salary、last_name以及first_name，不能使用order by完成
 
 > [解答思路](./SQL/获取当前薪水第二多的员工.sql)
+
+* [最差是第几名](https://www.nowcoder.com/practice/165d88474d434597bcd2af8bf72b24f1?tpId=82&tags=&title=&difficulty=0&judgeStatus=0&rp=1&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D268)
+
+> 知道学生们综合成绩的中位数是什么档位
+
+> [解答思路](./SQL/最差是第几名.sql)
