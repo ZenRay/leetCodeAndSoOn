@@ -26,3 +26,8 @@
 > 知道学生们综合成绩的中位数是什么档位
 
 > [解答思路](./SQL/最差是第几名.sql)
+
+* [删除记录](https://www.nowcoder.com/practice/964c9f7fffbb4ab18b507cfed4111b4a?tpId=240&tqId=2221797&ru=%2Fexam%2Foj&qru=%2Fta%2Fsql-advanced%2Fquestion-ranking&sourceUrl=%2Fexam%2Foj%3Fpage%3D1%26tab%3DSQL%25E7%25AF%2587%26topicId%3D240)
+
+> 删除exam_record表中未完成作答或作答时间小于5分钟整的记录中，开始作答时间最早的3条记录。
+
